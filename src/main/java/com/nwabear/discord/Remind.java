@@ -38,7 +38,6 @@ public class Remind implements Runnable {
                 }
             }
 
-
             PrivateChannel channel = event.getAuthor().openPrivateChannel().complete();
             channel.sendMessage(message).queue();
         } catch(Exception e) {

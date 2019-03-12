@@ -83,6 +83,11 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
+            case "avatar": {
+                new Avatar(event);
+                break;
+            }
+
             case "idk": {
                 new React(event, "idk");
                 break;
