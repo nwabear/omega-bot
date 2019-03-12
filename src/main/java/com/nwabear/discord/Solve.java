@@ -9,7 +9,6 @@ public class Solve {
     public Solve(MessageReceivedEvent event) {
         String google = "http://www.google.com/search?q=";
         String expression = event.getMessage().getContentRaw().substring(7);
-        String userAgent = "Omega Bot (Discord)";
         System.out.println("idk");
 
         try {
