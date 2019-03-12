@@ -11,20 +11,16 @@ public class Ban {
         Guild guild = event.getGuild();
         Member self = guild.getSelfMember();
 
-        if (!event.getMessage().getMentionedUsers().isEmpty()) {
-            if (!self.hasPermission(Permission.BAN_MEMBERS)) {
-                event.getChannel().sendMessage("I don't have permission to ban members!").queue();
-            } else if (!guild.getMember(event.getAuthor()).hasPermission(Permission.BAN_MEMBERS)) {
-                event.getChannel().sendMessage("You don't have permission to use that command!").queue();
-            } else {
-                for (User user : event.getMessage().getMentionedUsers()) {
-                    if (!self.canInteract(guild.getMember(user))) {
-                        event.getChannel().sendMessage("I am unable to ban " + user.getName()).queue();
-                    } else if(event.getMember().canInteract(guild.getMember(user))) {
-                        guild.getController().ban(guild.getMember(user), 0).queue();
+        if(!event.getMessage().getMentionedUsers().isEmpty()) {
+            for(Member member : event.getMessage().getMentionedMembers()) {
+                if(self.canInteract(member) && self.hasPermission(Permission.BAN_MEMBERS)) {
+                    if(event.getMember().canInteract(member) && event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
+                        guild.getController().ban(member, 0).queue();
                     } else {
-                        event.getChannel().sendMessage("You do not have permission to use this command!").queue();
+                        event.getChannel().sendMessage("You do not have permission to ban " + member.getNickname()).queue();
                     }
+                } else {
+                    event.getChannel().sendMessage("I do not have permission to ban " + member.getNickname()).queue();
                 }
             }
         } else {

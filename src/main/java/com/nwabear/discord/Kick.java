@@ -3,7 +3,6 @@ package com.nwabear.discord;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class Kick {
@@ -11,20 +10,16 @@ public class Kick {
         Guild guild = event.getGuild();
         Member self = guild.getSelfMember();
 
-        if (!event.getMessage().getMentionedUsers().isEmpty()) {
-            if (!self.hasPermission(Permission.KICK_MEMBERS)) {
-                event.getChannel().sendMessage("I don't have permission to kick members!").queue();
-            } else if (!guild.getMember(event.getAuthor()).hasPermission(Permission.KICK_MEMBERS)) {
-                event.getChannel().sendMessage("You don't have permission to use that command!").queue();
-            } else {
-                for (User user : event.getMessage().getMentionedUsers()) {
-                    if (!self.canInteract(guild.getMember(user))) {
-                        event.getChannel().sendMessage("I am unable to kick " + user.getName()).queue();
-                    } else if(event.getMember().canInteract(guild.getMember(user))) {
-                        guild.getController().kick(guild.getMember(user)).queue();
+        if(!event.getMessage().getMentionedUsers().isEmpty()) {
+            for(Member member : event.getMessage().getMentionedMembers()) {
+                if(self.canInteract(member) && self.hasPermission(Permission.KICK_MEMBERS)) {
+                    if(event.getMember().canInteract(member) && event.getMember().hasPermission(Permission.KICK_MEMBERS)) {
+                        guild.getController().kick(member).queue();
                     } else {
-                        event.getChannel().sendMessage("You do not have permission to use this command!").queue();
+                        event.getChannel().sendMessage("You do not have permission to kick " + member.getNickname()).queue();
                     }
+                } else {
+                    event.getChannel().sendMessage("I do not have permission to kick " + member.getNickname()).queue();
                 }
             }
         } else {
