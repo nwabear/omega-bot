@@ -9,7 +9,6 @@ public class Solve {
     public Solve(MessageReceivedEvent event) {
         String google = "http://www.google.com/search?q=";
         String expression = event.getMessage().getContentRaw().substring(7);
-        System.out.println("idk");
 
         try {
             String output = Jsoup.connect(google + URLEncoder.encode(expression, "UTF-8")).get().select("div#search").first().text();
