@@ -83,6 +83,11 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
+            case "wikipedia": {
+                new Wikipedia(event);
+                break;
+            }
+
             case "avatar": {
                 new Avatar(event);
                 break;
