@@ -10,6 +10,7 @@ public class Listener extends ListenerAdapter {
         if(!event.getAuthor().isBot()) {
             if(event.getGuild() != null) {
                 if (event.getMessage().getContentRaw().charAt(0) == ';') {
+                    System.out.println(event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
                     this.command(event);
                 }
             } else {
@@ -74,6 +75,11 @@ public class Listener extends ListenerAdapter {
 
             case "remind": {
                 new RemindStarter(event);
+                break;
+            }
+
+            case "solve": {
+                new Solve(event);
                 break;
             }
 
