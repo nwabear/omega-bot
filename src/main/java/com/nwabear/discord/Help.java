@@ -12,7 +12,7 @@ public class Help {
                         ";ban <user(s)>: bans 1 or more users\n" +
                         ";remind <hours> <minutes> <message>: reminds you after ammount of time specified\n" +
                         ";solve <expression>: solves a math equation\n" +
-                        ";wiki <query>: provides a wikipedia link to the given search\n" +
+                        ";wikipedia <query>: provides a wikipedia link to the given search\n" +
                         ";avatar <user>: displays the avatar for a user, will display your avatar if no user is tagged\n" +
                         ";roll <bound>: rolls a number between 1 and the bound, or a number between 1 and 100\n" +
                         ";reverse <text>: reverses text\n" +
