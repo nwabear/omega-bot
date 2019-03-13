@@ -83,6 +83,11 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
+            case "gimage": {
+                new GImage(event).command();
+                break;
+            }
+
             case "translate": {
                 new Translate(event).command();
                 break;

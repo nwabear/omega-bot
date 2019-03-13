@@ -18,6 +18,7 @@ public class Help {
                             ";remind <hours> <minutes> <message>\n" +
                             ";solve <expression>\n" +
                             ";wikipedia <query>\n" +
+                            ";gimage <query>\n" +
                             ";translate <input>\n" +
                             ";japanese <input>\n" +
                             ";avatar <user>\n" +
@@ -57,6 +58,10 @@ public class Help {
 
                 case "wikipedia":
                     response = new Wikipedia(event).getDescription();
+                    break;
+
+                case "gimage":
+                    response = new GImage(event).getDescription();
                     break;
 
                 case "translate":
