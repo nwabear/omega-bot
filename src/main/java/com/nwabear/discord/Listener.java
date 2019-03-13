@@ -84,7 +84,7 @@ public class Listener extends ListenerAdapter {
             }
 
             case "gimage": {
-                new GImage(event).command();
+                new GImage(event).commandTime(0);
                 break;
             }
 
