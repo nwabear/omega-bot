@@ -20,7 +20,7 @@ public class Listener extends ListenerAdapter {
     }
 
     private void command(MessageReceivedEvent event) {
-        String command = getCommand(event);
+        String command = getCommand(event).toLowerCase();
 
         switch (command) {
             case "kick": {
@@ -80,6 +80,16 @@ public class Listener extends ListenerAdapter {
 
             case "wikipedia": {
                 new Wikipedia(event).command();
+                break;
+            }
+
+            case "translate": {
+                new Translate(event).command();
+                break;
+            }
+
+            case "japanese": {
+                new Japanese(event).command();
                 break;
             }
 

@@ -18,6 +18,8 @@ public class Help {
                             ";remind <hours> <minutes> <message>\n" +
                             ";solve <expression>\n" +
                             ";wikipedia <query>\n" +
+                            ";translate <input>\n" +
+                            ";japanese <input>\n" +
                             ";avatar <user>\n" +
                             ";roll <bound>\n" +
                             ";reverse <text>\n" +
@@ -55,6 +57,14 @@ public class Help {
 
                 case "wikipedia":
                     response = new Wikipedia(event).getDescription();
+                    break;
+
+                case "translate":
+                    response = new Translate(event).getDescription();
+                    break;
+
+                case "japanese":
+                    response = new Japanese(event).getDescription();
                     break;
 
                 case "avatar":

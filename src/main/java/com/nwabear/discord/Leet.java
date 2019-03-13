@@ -17,7 +17,7 @@ public class Leet extends Command {
 
         String originals = "ABCDEGHIJKLMNORSTUVWXY";
         String[] replacements =
-                {"4", "8", "<", "|>", "3", "6", "|-|", "1", "\\_|", "|<", "|\\_", "|\\\\/|", "|\\\\|", "0", "|2", "5", "7", "|\\_|", "\\\\/", "\\\\/\\\\/", "><"};
+                {"4", "8", "<", "|>", "3", "6", "|-|", "1", "\\_|", "|<", "|\\_", "|\\\\/|", "|\\\\|", "0", "|2", "5", "7", "|\\_|", "\\\\/", "\\\\/\\\\/", "><", "'/"};
 
         for(int i = 0; i < input.length(); i++) {
             if(originals.contains(input.charAt(i) + "")) {
