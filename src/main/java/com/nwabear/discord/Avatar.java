@@ -4,13 +4,20 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Avatar {
+public class Avatar extends Command {
     public Avatar(MessageReceivedEvent event) {
+        super(event);
+        this.description =
+                ";avatar <user>: displays the avatar for a user, or will display your avatar if paramaters are left blank";
+    }
+
+    @Override
+    public void command() {
         try {
-            User user = event.getMessage().getMentionedUsers().get(0);
-            event.getChannel().sendMessage(new EmbedBuilder().setImage(user.getAvatarUrl()).build()).queue();
+            User user = this.message.getMentionedUsers().get(0);
+            this.channel.sendMessage(new EmbedBuilder().setImage(user.getAvatarUrl()).build()).queue();
         } catch(Exception e) {
-            event.getChannel().sendMessage(new EmbedBuilder().setImage(event.getAuthor().getAvatarUrl()).build()).queue();
+            this.channel.sendMessage(new EmbedBuilder().setImage(this.user.getAvatarUrl()).build()).queue();
         }
     }
 }

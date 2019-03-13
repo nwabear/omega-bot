@@ -2,10 +2,16 @@ package com.nwabear.discord;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class RemindStarter {
+public class RemindStarter extends Command {
     public RemindStarter(MessageReceivedEvent event) {
-        Remind remind = new Remind();
-        remind.setEvent(event);
+        super(event);
+        this.description =
+                ";remind <hours> <minutes> <message>: dm's you the message after the specified time has passed";
+    }
+
+    @Override
+    public void command() {
+        Remind remind = new Remind(this.event);
 
         Thread thread = new Thread(remind);
         thread.start();

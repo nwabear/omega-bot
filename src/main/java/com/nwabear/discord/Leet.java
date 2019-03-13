@@ -2,14 +2,21 @@ package com.nwabear.discord;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Leet {
+public class Leet extends Command {
     public Leet(MessageReceivedEvent event) {
-        String input = event.getMessage().getContentRaw().substring(6);
+        super(event);
+        this.description =
+                ";leet <input>: turns all text into leetspeak";
+    }
+
+    @Override
+    public void command() {
+        String input = this.message.getContentRaw().substring(6);
         input = input.toUpperCase();
         String output = "";
 
         String originals = "ABCDEGHIJKLMNORSTUVWXY";
-        String[] replacements = 
+        String[] replacements =
                 {"4", "8", "<", "|>", "3", "6", "|-|", "1", "\\_|", "|<", "|\\_", "|\\\\/|", "|\\\\|", "0", "|2", "5", "7", "|\\_|", "\\\\/", "\\\\/\\\\/", "><"};
 
         for(int i = 0; i < input.length(); i++) {
@@ -20,6 +27,6 @@ public class Leet {
             }
             output += " ";
         }
-        event.getChannel().sendMessage(output).queue();
+        this.channel.sendMessage(output).queue();
     }
 }

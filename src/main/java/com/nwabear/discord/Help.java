@@ -1,26 +1,91 @@
 package com.nwabear.discord;
 
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+
+import java.awt.*;
 
 public class Help {
     public Help(MessageReceivedEvent event) {
-        event.getChannel().sendMessage(
-                "Commands: \n" +
-                        ";help: display help\n" +
-                        ";kick <user(s)>: kicks 1 or more users\n" +
-                        ";ban <user(s)>: bans 1 or more users\n" +
-                        ";remind <hours> <minutes> <message>: reminds you after ammount of time specified\n" +
-                        ";solve <expression>: solves a math equation\n" +
-                        ";wikipedia <query>: provides a wikipedia link to the given search\n" +
-                        ";avatar <user>: displays the avatar for a user, will display your avatar if no user is tagged\n" +
-                        ";roll <bound>: rolls a number between 1 and the bound, or a number between 1 and 100\n" +
-                        ";reverse <text>: reverses text\n" +
-                        ";reverseName <user(s)>: reverses the name of 1 or more0 users\n" +
-                        ";leet <input>: speak in l33t\n" +
-                        ";rps <r, p, s>: play rock paper scissors\n" +
-                        ";echo <text>: repeats any text inputted after the command\n" +
-                        ";idk/;f/;x: reaction commands"
-        ).queue();
+        if(event.getMessage().getContentRaw().length() == 5) {
+            event.getChannel().sendMessage(
+                    new EmbedBuilder().addField( new MessageEmbed.Field("Commands",
+                    "Commands: \n" +
+                            ";help\n" +
+                            ";kick <user(s)>\n" +
+                            ";ban <user(s)>\n" +
+                            ";remind <hours> <minutes> <message>\n" +
+                            ";solve <expression>\n" +
+                            ";wikipedia <query>\n" +
+                            ";avatar <user>\n" +
+                            ";roll <bound>\n" +
+                            ";reverse <text>\n" +
+                            ";reverseName <user(s)>\n" +
+                            ";leet <input>\n" +
+                            ";echo <text>\n" +
+                            ";idk/;f/;x\n\n" +
+                            "For help with a specific command, type ;help <command>"
+                                    , true)
+                    ).setColor(Color.RED).build()
+            ).queue();
+        } else {
+            String[] args = event.getMessage().getContentRaw().substring(6).split(" ");
+            String response;
+            switch(args[0]) {
+                case "help":
+                    response = ";help <command>: displays list of commands, or information about a specific command";
+                    break;
+
+                case "kick":
+                    response = new Kick(event).getDescription();
+                    break;
+
+                case "ban":
+                    response = new Ban(event).getDescription();
+                    break;
+
+                case "remind":
+                    response = new RemindStarter(event).getDescription();
+                    break;
+
+                case "solve":
+                    response = new Solve(event).getDescription();
+                    break;
+
+                case "wikipedia":
+                    response = new Wikipedia(event).getDescription();
+                    break;
+
+                case "avatar":
+                    response = new Avatar(event).getDescription();
+                    break;
+
+                case "roll":
+                    response = new Roll(event).getDescription();
+                    break;
+
+                case "reverse":
+                    response = new Reverse(event).getDescription();
+                    break;
+
+                case "reverseName":
+                    response = new ReverseName(event).getDescription();
+                    break;
+
+                case "leet":
+                    response = new Leet(event).getDescription();
+                    break;
+
+                case "echo":
+                    response = new Echo(event).getDescription();
+                    break;
+
+                default:
+                    response = "that command doesn't exist, please check your spelling and try again";
+                    break;
+            }
+            event.getChannel().sendMessage(new EmbedBuilder().setTitle(response).setColor(Color.RED).build()).queue();
+        }
     }
 }

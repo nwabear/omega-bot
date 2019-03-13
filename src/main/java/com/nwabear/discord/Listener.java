@@ -24,27 +24,27 @@ public class Listener extends ListenerAdapter {
 
         switch (command) {
             case "kick": {
-                new Kick(event);
+                new Kick(event).command();
                 break;
             }
 
             case "ban": {
-                new Ban(event);
+                new Ban(event).command();
                 break;
             }
 
             case "roll": {
-                new Roll(event);
+                new Roll(event).command();
                 break;
             }
 
             case "reverse": {
-                new Reverse(event);
+                new Reverse(event).command();
                 break;
             }
 
             case "reverseName": {
-                new ReverseName(event);
+                new ReverseName(event).command();
                 break;
             }
 
@@ -54,42 +54,37 @@ public class Listener extends ListenerAdapter {
             }
 
             case "echo": {
-                new Echo(event);
+                new Echo(event).command();
                 break;
             }
 
             case "leet": {
-                new Leet(event);
-                break;
-            }
-
-            case "rps": {
-                new RPS(event);
+                new Leet(event).command();
                 break;
             }
 
             case "||pm||": {
-                new PM(event);
+                new PM(event).command();
                 break;
             }
 
             case "remind": {
-                new RemindStarter(event);
+                new RemindStarter(event).command();
                 break;
             }
 
             case "solve": {
-                new Solve(event);
+                new Solve(event).command();
                 break;
             }
 
             case "wikipedia": {
-                new Wikipedia(event);
+                new Wikipedia(event).command();
                 break;
             }
 
             case "avatar": {
-                new Avatar(event);
+                new Avatar(event).command();
                 break;
             }
 

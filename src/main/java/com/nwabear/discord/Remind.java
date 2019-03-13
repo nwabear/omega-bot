@@ -6,12 +6,15 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Remind implements Runnable {
-    private MessageReceivedEvent event;
-
+public class Remind extends Command implements Runnable {
     @Override
     public void run() {
-        String[] args = this.event.getMessage().getContentRaw().substring(8).split(" ");
+        this.command();
+    }
+
+    @Override
+    public void command() {
+        String[] args = this.message.getContentRaw().substring(8).split(" ");
         Calendar cal = Calendar.getInstance();
 
         try {
@@ -25,7 +28,7 @@ public class Remind implements Runnable {
                 message += " ";
             }
 
-            this.event.getChannel().sendMessage("Reminding you in " + args[0] + " hours and " + args[1] + " minutes about \"" + message + "\".").queue();
+            this.channel.sendMessage("Reminding you in " + args[0] + " hours and " + args[1] + " minutes about \"" + message + "\".").queue();
 
             cal.add(Calendar.MINUTE, minutes);
             Date finish = cal.getTime();
@@ -38,14 +41,14 @@ public class Remind implements Runnable {
                 }
             }
 
-            PrivateChannel channel = event.getAuthor().openPrivateChannel().complete();
-            channel.sendMessage(message).queue();
+            PrivateChannel pc = this.user.openPrivateChannel().complete();
+            pc.sendMessage(message).queue();
         } catch(Exception e) {
-            this.event.getChannel().sendMessage("Something went wrong, check your formatting and try again!").queue();
+            this.channel.sendMessage("Something went wrong, check your formatting and try again!").queue();
         }
     }
 
-    public void setEvent(MessageReceivedEvent event) {
-        this.event = event;
+    public Remind(MessageReceivedEvent event) {
+        super(event);
     }
 }

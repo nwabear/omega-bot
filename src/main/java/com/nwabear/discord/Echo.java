@@ -2,9 +2,16 @@ package com.nwabear.discord;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Echo {
+public class Echo extends Command {
     public Echo(MessageReceivedEvent event) {
-        System.out.println(event.getMessage().getContentRaw());
-        event.getChannel().sendMessage(event.getMessage().getContentRaw().substring(6)).queue();
+        super(event);
+        this.description =
+                ";echo <input>: repeats whatever is inputted";
+    }
+
+    @Override
+    public void command() {
+        System.out.println(this.message.getContentRaw());
+        this.channel.sendMessage(this.message.getContentRaw().substring(6)).queue();
     }
 }

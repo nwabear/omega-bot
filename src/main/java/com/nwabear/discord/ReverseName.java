@@ -1,24 +1,29 @@
 package com.nwabear.discord;
 
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class ReverseName {
+public class ReverseName extends Command {
     public ReverseName(MessageReceivedEvent event) {
-        Guild guild = event.getGuild();
+        super(event);
+        this.description =
+                ";reverseName <user(s)>: reverses the nickname of the users specified";
+    }
+
+    @Override
+    public void command() {
         Member self = guild.getSelfMember();
         String name;
 
-        if (!event.getMessage().getMentionedUsers().isEmpty()) {
+        if (!this.message.getMentionedUsers().isEmpty()) {
             if (!self.hasPermission(Permission.NICKNAME_MANAGE)) {
-                event.getChannel().sendMessage("I don't have permission to change names!").queue();
-            } else if (!guild.getMember(event.getAuthor()).hasPermission(Permission.NICKNAME_MANAGE)) {
-                event.getChannel().sendMessage("You don't have permission to use that command!").queue();
+                this.channel.sendMessage("I don't have permission to change names!").queue();
+            } else if (!guild.getMember(this.user).hasPermission(Permission.NICKNAME_MANAGE)) {
+                this.channel.sendMessage("You don't have permission to use that command!").queue();
             } else {
-                for (User user : event.getMessage().getMentionedUsers()) {
+                for (User user : this.message.getMentionedUsers()) {
                     if (guild.getMember(user).getNickname() != null) {
                         name = guild.getMember(user).getNickname();
                     } else {
@@ -26,16 +31,16 @@ public class ReverseName {
                     }
                     if (self.hasPermission(Permission.NICKNAME_MANAGE)) {
                         try {
-                            if(event.getMember().canInteract(guild.getMember(user))) {
-                                guild.getController().setNickname(guild.getMember(user), new StringBuilder(name).reverse().toString()).queue();
+                            if(this.member.canInteract(guild.getMember(user))) {
+                                this.controller.setNickname(guild.getMember(user), new StringBuilder(name).reverse().toString()).queue();
                             } else {
-                                event.getChannel().sendMessage("You do not have permission to use this command!").queue();
+                                this.channel.sendMessage("You do not have permission to use this command!").queue();
                             }
                         } catch (Exception e) {
-                            event.getChannel().sendMessage("I can't modify " + name + "'s name.").queue();
+                            this.channel.sendMessage("I can't modify " + name + "'s name.").queue();
                         }
                     } else {
-                        event.getChannel().sendMessage("I can't modify " + name + "'s name.").queue();
+                        this.channel.sendMessage("I can't modify " + name + "'s name.").queue();
                     }
                 }
             }

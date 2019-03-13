@@ -2,10 +2,17 @@ package com.nwabear.discord;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Reverse {
+public class Reverse extends Command {
     public Reverse(MessageReceivedEvent event) {
-        StringBuilder sb = new StringBuilder(event.getMessage().getContentRaw().substring(9)).reverse();
+        super(event);
+        this.description =
+                ";reverse <input>: reverses inputted text";
+    }
 
-        event.getChannel().sendMessage(sb.toString()).queue();
+    @Override
+    public void command() {
+        StringBuilder sb = new StringBuilder(this.message.getContentRaw().substring(9)).reverse();
+
+        this.channel.sendMessage(sb.toString()).queue();
     }
 }

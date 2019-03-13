@@ -5,21 +5,25 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Kick {
+public class Kick extends Command {
     public Kick(MessageReceivedEvent event) {
-        Guild guild = event.getGuild();
-        Member self = guild.getSelfMember();
-
-        if(!event.getMessage().getMentionedUsers().isEmpty()) {
-            for(Member member : event.getMessage().getMentionedMembers()) {
-                if(self.canInteract(member) && self.hasPermission(Permission.KICK_MEMBERS)) {
-                    if(event.getMember().canInteract(member) && event.getMember().hasPermission(Permission.KICK_MEMBERS)) {
-                        guild.getController().kick(member).queue();
+        super(event);
+        this.description =
+                ";kick <user(s)>: kicks all users put into field";
+    }
+    
+    @Override
+    public void command() {
+        if(!this.message.getMentionedUsers().isEmpty()) {
+            for(Member memberToKick : this.message.getMentionedMembers()) {
+                if(guild.getSelfMember().canInteract(member) && guild.getSelfMember().hasPermission(Permission.KICK_MEMBERS)) {
+                    if(member.canInteract(memberToKick) && member.hasPermission(Permission.KICK_MEMBERS)) {
+                        this.controller.kick(memberToKick).queue();
                     } else {
-                        event.getChannel().sendMessage("You do not have permission to kick " + member.getNickname()).queue();
+                        event.getChannel().sendMessage("You do not have permission to kick " + memberToKick.getNickname()).queue();
                     }
                 } else {
-                    event.getChannel().sendMessage("I do not have permission to kick " + member.getNickname()).queue();
+                    event.getChannel().sendMessage("I do not have permission to kick " + memberToKick.getNickname()).queue();
                 }
             }
         } else {

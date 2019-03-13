@@ -6,21 +6,25 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Ban {
+public class Ban extends Command {
     public Ban(MessageReceivedEvent event) {
-        Guild guild = event.getGuild();
-        Member self = guild.getSelfMember();
+        super(event);
+        this.description =
+                ";ban <user(s)>: bans all users put into field";
+    }
 
-        if(!event.getMessage().getMentionedUsers().isEmpty()) {
-            for(Member member : event.getMessage().getMentionedMembers()) {
-                if(self.canInteract(member) && self.hasPermission(Permission.BAN_MEMBERS)) {
-                    if(event.getMember().canInteract(member) && event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
-                        guild.getController().ban(member, 0).queue();
+    @Override
+    public void command() {
+        if(!this.message.getMentionedUsers().isEmpty()) {
+            for(Member memberToBan : this.message.getMentionedMembers()) {
+                if(guild.getSelfMember().canInteract(member) && guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)) {
+                    if(member.canInteract(memberToBan) && member.hasPermission(Permission.BAN_MEMBERS)) {
+                        this.controller.ban(memberToBan, 0).queue();
                     } else {
-                        event.getChannel().sendMessage("You do not have permission to ban " + member.getNickname()).queue();
+                        event.getChannel().sendMessage("You do not have permission to ban " + memberToBan.getNickname()).queue();
                     }
                 } else {
-                    event.getChannel().sendMessage("I do not have permission to ban " + member.getNickname()).queue();
+                    event.getChannel().sendMessage("I do not have permission to ban " + memberToBan.getNickname()).queue();
                 }
             }
         } else {
