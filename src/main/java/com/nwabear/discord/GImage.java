@@ -23,25 +23,34 @@ public class GImage extends Command {
         String expression = this.message.getContentRaw().substring(7);
 
         try {
+            // get each image in the google search
             Elements list = Jsoup.connect(google + URLEncoder.encode(expression, "UTF-8")).get().select("div.rg_meta.notranslate");
 
             Random rand = new Random();
 
+            // select a random image to display
             String output = list.get(rand.nextInt(list.size())).html();
 
+            // get the substring of the image based on the last characters of it
             if(output.contains(".png")) {
                 output = output.substring(0, output.indexOf(".png") + 4);
             } else {
                 output = output.substring(0, output.indexOf(".jpg") + 4);
             }
 
+            // get the beginning of the link based on the last selection of http before the extension
             output = output.substring(output.lastIndexOf("http"));
 
+            // print the image into the chat
             output = URLDecoder.decode(output, "UTF-8");
             System.out.println(output);
 
             this.channel.sendMessage(new EmbedBuilder().setImage(output).build()).queue();
         } catch (Exception e) {
+            // if the search failed for any reason
+            // try again until it has gone 20 times
+            // where it can be assumed that the search
+            // won't work and it will stop trying
             this.commandTime(time + 1);
         }
     }

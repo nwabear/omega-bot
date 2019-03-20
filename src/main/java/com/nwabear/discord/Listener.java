@@ -7,10 +7,17 @@ public class Listener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        // when a message is recieved, if it is a bot, don't respond
         if(!event.getAuthor().isBot()) {
+            // if the guild is null, meaning it is in a PM
+            // noify the user not to send messages that way
             if(event.getGuild() != null) {
+                // if the first character of the message is a semicolon, run the commands
                 if (event.getMessage().getContentRaw().charAt(0) == ';') {
+                    // print to the terminal the user and the command they are running
                     System.out.println(event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
+
+                    // call the command method do run the cooresponding command
                     this.command(event);
                 }
             } else {
@@ -20,6 +27,7 @@ public class Listener extends ListenerAdapter {
     }
 
     private void command(MessageReceivedEvent event) {
+        // get the string for the command that the user is calling
         String command = getCommand(event).toLowerCase();
 
         switch (command) {
@@ -121,6 +129,7 @@ public class Listener extends ListenerAdapter {
     }
 
     private String getCommand(MessageReceivedEvent event) {
+        // returns the name of the command called
         return event.getMessage().getContentRaw().split(" ")[0].substring(1);
     }
 }

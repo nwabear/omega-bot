@@ -4,6 +4,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class React {
     public React(MessageReceivedEvent event, String type) {
+        // print to the channel the coresponding reaction text
         switch(type) {
             case "idk":
                 event.getChannel().sendMessage("¯\\\\\\_(ツ)\\_/¯").queue();

@@ -9,6 +9,7 @@ import java.awt.*;
 public class Help {
     public Help(MessageReceivedEvent event) {
         if(event.getMessage().getContentRaw().length() == 5) {
+            // if there was no command specified, output simple help list
             event.getChannel().sendMessage(
                     new EmbedBuilder().addField( new MessageEmbed.Field("Commands",
                     "Commands: \n" +
@@ -33,6 +34,8 @@ public class Help {
                     ).setColor(Color.RED).build()
             ).queue();
         } else {
+            // if there was a command specified,
+            // output the description of the requested command
             String[] args = event.getMessage().getContentRaw().substring(6).split(" ");
             String response;
             switch(args[0]) {
@@ -100,6 +103,7 @@ public class Help {
                     response = "that command doesn't exist, please check your spelling and try again";
                     break;
             }
+            // make the response colored for style
             event.getChannel().sendMessage(new EmbedBuilder().setTitle(response).setColor(Color.RED).build()).queue();
         }
     }

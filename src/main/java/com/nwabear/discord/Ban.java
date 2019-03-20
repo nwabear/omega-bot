@@ -15,9 +15,12 @@ public class Ban extends Command {
 
     @Override
     public void command() {
+        // make sure that at least 1 user is mentioned
         if(!this.message.getMentionedUsers().isEmpty()) {
             for(Member memberToBan : this.message.getMentionedMembers()) {
+                // make sure the bot has permission to ban the user
                 if(guild.getSelfMember().canInteract(member) && guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)) {
+                    // make sure the author has permission to ban the user
                     if(member.canInteract(memberToBan) && member.hasPermission(Permission.BAN_MEMBERS)) {
                         this.controller.ban(memberToBan, 0).queue();
                     } else {

@@ -18,10 +18,13 @@ public class Solve extends Command {
         String expression = this.message.getContentRaw().substring(7);
 
         try {
+            // get result of math search
             String output = Jsoup.connect(google + URLEncoder.encode(expression, "UTF-8")).get().select("div#search").first().text();
 
+            // slim result down to just the result of the math, and no words
             output = output.substring(output.indexOf("Result ") + 7, output.indexOf("You") - 1);
 
+            // send the finished math result to the user
             this.channel.sendMessage(output).queue();
         } catch (Exception e) {
             this.channel.sendMessage("There was an error calculating, please make sure the syntax is correct and try again.").queue();

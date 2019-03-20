@@ -14,9 +14,11 @@ public class Avatar extends Command {
     @Override
     public void command() {
         try {
+            // get the first mentioned user and return their avatar
             User user = this.message.getMentionedUsers().get(0);
             this.channel.sendMessage(new EmbedBuilder().setImage(user.getAvatarUrl()).build()).queue();
         } catch(Exception e) {
+            // if no user was mentioned, return the authors avatar
             this.channel.sendMessage(new EmbedBuilder().setImage(this.user.getAvatarUrl()).build()).queue();
         }
     }

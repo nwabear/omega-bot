@@ -2,7 +2,6 @@ package com.nwabear.discord;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import org.jsoup.Jsoup;
-import org.jsoup.select.NodeFilter;
 
 import java.net.URLEncoder;
 
@@ -19,7 +18,8 @@ public class Wikipedia extends Command {
         String search = this.message.getContentRaw().substring(11);
 
         try {
-            NodeFilter nf;
+            // search what the user specified
+            // and output the first result that is a Wikipedia link
             String stuff = Jsoup.connect(baseURL + URLEncoder.encode(search, "UTF-8")).get().getElementsContainingText("Wikipedia").attr("abs:href");
             this.channel.sendMessage(stuff).queue();
         } catch(Exception e) {

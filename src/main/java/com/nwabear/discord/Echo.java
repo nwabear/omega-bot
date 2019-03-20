@@ -11,6 +11,7 @@ public class Echo extends Command {
 
     @Override
     public void command() {
+        // print the message into terminal and back into the channel
         System.out.println(this.message.getContentRaw());
         this.channel.sendMessage(this.message.getContentRaw().substring(6)).queue();
     }

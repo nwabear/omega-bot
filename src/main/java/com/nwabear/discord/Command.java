@@ -15,6 +15,7 @@ public class Command {
     String description;
 
     public Command(MessageReceivedEvent event) {
+        // declare useful variables for commands
         this.event = event;
         this.message = event.getMessage();
         this.guild = event.getGuild();
@@ -25,6 +26,7 @@ public class Command {
     }
 
     public void command() {
+        // if this method was not overridden, print that the command is broken
         this.channel.sendMessage("This command is broken, sorry for the inconvenience...").queue();
     }
 
