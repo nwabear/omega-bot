@@ -6,7 +6,18 @@ import net.dv8tion.jda.core.JDABuilder;
 public class BotApp {
     public static void main(String[] args) throws Exception {
         // runs bot using bot token
-        JDA jda = new JDABuilder("NTUzNzI2NTM5OTU5NzYyOTQ1.D2mMfA.Pgay1kBCi69p3WE3MB43dhH498g")
+        /*
+         * *** Note ***
+         *
+         * when using the bot, replace
+         * "new Token().getToken()"
+         * with the token that you are given from the
+         * discord developer portal
+         */
+        String token = new Token().getToken();
+
+        // runs bot using bot token
+        JDA jda = new JDABuilder(new Token().getToken())
                 .addEventListener(new Listener())
                 .build();
 
