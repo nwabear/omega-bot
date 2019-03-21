@@ -29,7 +29,9 @@ public class Help {
                             ";leet <input>\n" +
                             ";echo <text>\n" +
                             ";idk/;f/;x\n\n" +
-                            "For help with a specific command, type ;help <command>"
+                            "For help with a specific command, type ;help <command>\n\n" +
+                            "Bot Creator: Castillix\n" +
+                            "Bot Source Code: https://github.com/nwabear/omega-bot"
                                     , true)
                     ).setColor(Color.RED).build()
             ).queue();
