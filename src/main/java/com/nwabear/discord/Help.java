@@ -19,6 +19,10 @@ public class Help {
                             ";remind <hours> <minutes> <message>\n" +
                             ";wikipedia <query>\n" +
                             ";gimage <query>\n" +
+                            ";join <voice channel>\n" +
+                            ";leave\n" +
+                            ";play <youtube link>\n" +
+                            ";stop\n" +
                             ";avatar <user>\n" +
                             ";roll <bound>\n" +
                             ";reverse <text>\n" +
