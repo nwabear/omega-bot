@@ -73,6 +73,22 @@ public class Help {
                     response = new Reverse(event).getDescription();
                     break;
 
+                case "join":
+                    response = new Join(event).getDescription();
+                    break;
+
+                case "leave":
+                    response = new Leave(event).getDescription();
+                    break;
+
+                case "play":
+                    response = ";play <youtube link>: plays youtube video in current voice channel";
+                    break;
+
+                case "stop":
+                    response = ";stop: stops audio in current channel";
+                    break;
+
                 case "leet":
                     response = new Leet(event).getDescription();
                     break;

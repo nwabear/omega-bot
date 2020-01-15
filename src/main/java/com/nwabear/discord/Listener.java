@@ -3,10 +3,18 @@ package com.nwabear.discord;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+import java.util.ArrayList;
+
 public class Listener extends ListenerAdapter {
+    private ArrayList<BotAudioManager> audioManagers = new ArrayList<>();
+    private ArrayList<String> keys = new ArrayList<>();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        if(!this.keys.contains(event.getGuild().getId())) {
+            this.keys.add(event.getGuild().getId());
+            this.audioManagers.add(new BotAudioManager(event.getGuild()));
+        }
         // when a message is recieved, if it is a bot, don't respond
         if(!event.getAuthor().isBot()) {
             // if the guild is null, meaning it is in a PM
@@ -83,6 +91,26 @@ public class Listener extends ListenerAdapter {
 
             case "avatar": {
                 new Avatar(event).command();
+                break;
+            }
+
+            case "join": {
+                new Join(event).command();
+                break;
+            }
+
+            case "leave": {
+                new Leave(event).command();
+                break;
+            }
+
+            case "play": {
+                this.audioManagers.get(this.keys.indexOf(event.getGuild().getId())).play(event);
+                break;
+            }
+
+            case "stop": {
+                this.audioManagers.get(this.keys.indexOf(event.getGuild().getId())).stop();
                 break;
             }
 
