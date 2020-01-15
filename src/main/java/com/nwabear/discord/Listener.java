@@ -51,11 +51,6 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
-            case "reverseName": {
-                new ReverseName(event).command();
-                break;
-            }
-
             case "help": {
                 new Help(event);
                 break;
@@ -71,18 +66,8 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
-            case "||pm||": {
-                new PM(event).command();
-                break;
-            }
-
             case "remind": {
                 new RemindStarter(event).command();
-                break;
-            }
-
-            case "solve": {
-                new Solve(event).command();
                 break;
             }
 
@@ -93,16 +78,6 @@ public class Listener extends ListenerAdapter {
 
             case "gimage": {
                 new GImage(event).commandTime(0);
-                break;
-            }
-
-            case "translate": {
-                new Translate(event).command();
-                break;
-            }
-
-            case "japanese": {
-                new Japanese(event).command();
                 break;
             }
 

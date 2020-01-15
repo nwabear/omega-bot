@@ -15,7 +15,7 @@ public class BotApp {
          */
 
         // runs bot using bot token
-        JDA jda = new JDABuilder(args[0])
+        JDA jda = new JDABuilder("NTUzNzI2NTM5OTU5NzYyOTQ1.Xh6ZoA.bRj-RIODiqmrKj6bxmNt50cPiJg")
                 .addEventListener(new Listener())
                 .build();
 

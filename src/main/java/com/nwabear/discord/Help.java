@@ -17,15 +17,11 @@ public class Help {
                             ";kick <user(s)>\n" +
                             ";ban <user(s)>\n" +
                             ";remind <hours> <minutes> <message>\n" +
-                            ";solve <expression>\n" +
                             ";wikipedia <query>\n" +
                             ";gimage <query>\n" +
-                            ";translate <input>\n" +
-                            ";japanese <input>\n" +
                             ";avatar <user>\n" +
                             ";roll <bound>\n" +
                             ";reverse <text>\n" +
-                            ";reverseName <user(s)>\n" +
                             ";leet <input>\n" +
                             ";echo <text>\n" +
                             ";idk/;f/;x\n\n" +
@@ -57,24 +53,12 @@ public class Help {
                     response = new RemindStarter(event).getDescription();
                     break;
 
-                case "solve":
-                    response = new Solve(event).getDescription();
-                    break;
-
                 case "wikipedia":
                     response = new Wikipedia(event).getDescription();
                     break;
 
                 case "gimage":
                     response = new GImage(event).getDescription();
-                    break;
-
-                case "translate":
-                    response = new Translate(event).getDescription();
-                    break;
-
-                case "japanese":
-                    response = new Japanese(event).getDescription();
                     break;
 
                 case "avatar":
@@ -87,10 +71,6 @@ public class Help {
 
                 case "reverse":
                     response = new Reverse(event).getDescription();
-                    break;
-
-                case "reverseName":
-                    response = new ReverseName(event).getDescription();
                     break;
 
                 case "leet":
