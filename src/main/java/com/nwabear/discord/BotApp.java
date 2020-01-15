@@ -9,15 +9,13 @@ public class BotApp {
         /*
          * *** Note ***
          *
-         * when using the bot, replace
-         * "new Token().getToken()"
-         * with the token that you are given from the
-         * discord developer portal
+         * when using the bot, either replace
+         * args[0] with the token string, or
+         * pass the token as the arguments
          */
-        String token = new Token().getToken();
 
         // runs bot using bot token
-        JDA jda = new JDABuilder(new Token().getToken())
+        JDA jda = new JDABuilder(args[0])
                 .addEventListener(new Listener())
                 .build();
 
