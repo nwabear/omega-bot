@@ -24,6 +24,7 @@ public class Help {
                             ";play <youtube link>\n" +
                             ";stop\n" +
                             ";avatar <user>\n" +
+                            ";wavy\n" +
                             ";roll <bound>\n" +
                             ";reverse <text>\n" +
                             ";leet <input>\n" +
@@ -75,6 +76,10 @@ public class Help {
 
                 case "reverse":
                     response = new Reverse(event).getDescription();
+                    break;
+
+                case "wavy":
+                    response = new Wavy(event).getDescription();
                     break;
 
                 case "join":

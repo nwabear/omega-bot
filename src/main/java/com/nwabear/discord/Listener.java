@@ -94,6 +94,11 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
+            case "wavy": {
+                new Wavy(event).command();
+                break;
+            }
+
             case "join": {
                 new Join(event).command();
                 break;

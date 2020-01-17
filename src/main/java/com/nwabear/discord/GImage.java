@@ -19,8 +19,9 @@ public class GImage extends Command {
 
     @Override
     public void command() {
-        String google = "https://www.google.com/search?tbm=isch&tbs=ift%3Apng&tbs=ift%3Ajpg&q=";
+        String google = "https://www.google.com/search?tbm=isch&safe=strict&tbs=ift%3Apng&tbs=ift%3Ajpg&q=";
         String expression = this.message.getContentRaw().substring(7);
+        expression = expression.replace("\\", "\\\\");
 
         try {
             // get each image in the google search
@@ -48,7 +49,7 @@ public class GImage extends Command {
             this.channel.sendMessage(new EmbedBuilder().setImage(output).build()).queue();
         } catch (Exception e) {
             // if the search failed for any reason
-            // try again until it has gone 20 times
+            // try again until it has gone 5 times
             // where it can be assumed that the search
             // won't work and it will stop trying
             this.commandTime(time + 1);
@@ -57,8 +58,10 @@ public class GImage extends Command {
 
     public void commandTime(int time) {
         this.time = time;
-        if(!(this.time > 20)) {
+        if(!(this.time > 5)) {
             this.command();
+        } else {
+            this.channel.sendMessage("Failed to find image").queue();
         }
     }
 }
