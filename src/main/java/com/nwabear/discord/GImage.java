@@ -14,7 +14,7 @@ public class GImage extends Command {
     public GImage(MessageReceivedEvent event) {
         super(event);
         this.description =
-                ";gimage <query>: searches for a google image matching the input\n\tIMPORTANT: Safe Search is not enabled, use at your own risk";
+                ";gimage <query>: searches for a google image matching the input";
     }
 
     @Override

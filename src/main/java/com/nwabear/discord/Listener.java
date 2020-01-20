@@ -54,6 +54,16 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
+            case "flip": {
+                new Flip(event).command();
+                break;
+            }
+
+            case "roulette": {
+                new Roulette(event).command();
+                break;
+            }
+
             case "reverse": {
                 new Reverse(event).command();
                 break;

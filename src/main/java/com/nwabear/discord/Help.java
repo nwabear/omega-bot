@@ -26,6 +26,8 @@ public class Help {
                             ";avatar <user>\n" +
                             ";wavy\n" +
                             ";roll <bound>\n" +
+                            ";roulette\n" +
+                            ";flip\n" +
                             ";reverse <text>\n" +
                             ";leet <input>\n" +
                             ";echo <text>\n" +
@@ -72,6 +74,14 @@ public class Help {
 
                 case "roll":
                     response = new Roll(event).getDescription();
+                    break;
+
+                case "roulette":
+                    response = new Roulette(event).getDescription();
+                    break;
+
+                case "flip":
+                    response = new Flip(event).getDescription();
                     break;
 
                 case "reverse":
