@@ -16,7 +16,7 @@ public class Join extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         try {
             VoiceChannel vc = this.guild.getVoiceChannelsByName(this.message.getContentRaw().substring(6), true).get(0);
             AudioManager am = this.guild.getAudioManager();

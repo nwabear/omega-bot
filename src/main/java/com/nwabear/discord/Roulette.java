@@ -14,7 +14,7 @@ public class Roulette extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         Random rand = new Random();
         try {
             // create a random number and print it to the channel
@@ -22,7 +22,6 @@ public class Roulette extends Command {
             int[] red = {9, 30, 7, 32, 5, 34, 3, 36, 1, 27, 25, 12, 19, 18, 21, 16, 23, 14};
             int[] black = {28, 26, 11, 20, 17, 22, 15, 24, 13, 10, 29, 8, 31, 6, 33, 4, 35, 2};
             int num = rand.nextInt(37);
-            num--;
 
             toReturn = toReturn + num + " ";
 

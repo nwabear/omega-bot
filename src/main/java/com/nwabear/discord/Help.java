@@ -23,6 +23,9 @@ public class Help {
                             ";leave\n" +
                             ";play <youtube link>\n" +
                             ";stop\n" +
+                            ";skip\n" +
+                            ";resume\n" +
+                            ";clear\n" +
                             ";avatar <user>\n" +
                             ";wavy\n" +
                             ";roll <bound>\n" +
@@ -106,6 +109,18 @@ public class Help {
 
                 case "stop":
                     response = ";stop: stops audio in current channel";
+                    break;
+
+                case "skip":
+                    response = ";skip: skips the currently playing song";
+                    break;
+
+                case "resume":
+                    response = ";resume: resumes playing audio from the queue";
+                    break;
+
+                case "clear":
+                    response = ";clear: empties the audio queue";
                     break;
 
                 case "leet":

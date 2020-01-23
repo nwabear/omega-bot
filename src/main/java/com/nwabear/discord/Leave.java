@@ -12,7 +12,7 @@ public class Leave extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         AudioManager am = this.guild.getAudioManager();
         am.closeAudioConnection();
     }

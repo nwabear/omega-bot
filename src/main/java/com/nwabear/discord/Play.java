@@ -32,9 +32,7 @@ public class Play extends Command {
                 ";play <youtube link>: plays youtube video in current voice channel";
     }
 
-    @Override
     public void command() {
-
         if(this.am.getConnectedChannel() != null) {
             this.apm.loadItem(this.message.getContentRaw().substring(6), new AudioLoadResultHandler() {
                 @Override
@@ -60,5 +58,14 @@ public class Play extends Command {
         } else {
             this.channel.sendMessage("I am not connected to a voice channel").queue();
         }
+    }
+
+    @Override
+    public void run() {
+        // no
+    }
+
+    public AudioPlayer getPlayer() {
+        return this.player;
     }
 }

@@ -12,7 +12,7 @@ public class Roll extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         Random rand = new Random();
         try {
             // create a random number and print it to the channel

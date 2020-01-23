@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Random;
 
 public class Wavy extends Command {
     public Wavy(MessageReceivedEvent event) {
@@ -27,7 +28,7 @@ public class Wavy extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         try {
             Platform.startup(() -> {});
         } catch(Exception e) {
@@ -62,10 +63,15 @@ public class Wavy extends Command {
                     fm.setWidth(img.getWidth());
                     fm.setHeight(img.getHeight());
 
-                    for (int i = 0; i < img.getWidth(); i++) {
-                        double v = (Math.sin(i / 20.0 * Math.PI) - 0.5) / 40.0;
-                        for (int j = 0; j < img.getHeight(); j++) {
-                            fm.setSamples(i, j, 0.0f, (float) v);
+                    OpenSimplexNoise noise = new OpenSimplexNoise(new Random().nextLong());
+
+                    for (int y = 0; y < img.getHeight(); y++) {
+                        for (int x = 0; x < img.getWidth(); x++) {
+                            double value = noise.eval(x / (img.getWidth() / 30.0), y / (img.getHeight() / 30.0));
+                            value /= 5;
+
+
+                            fm.setSamples(x, y, 0.0f, (float) value);
                         }
                     }
 

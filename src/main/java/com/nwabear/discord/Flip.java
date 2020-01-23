@@ -12,7 +12,7 @@ public class Flip extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         Random rand = new Random();
         try {
             // create a random heads or tails number and print it

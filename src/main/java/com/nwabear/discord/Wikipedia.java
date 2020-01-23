@@ -13,7 +13,7 @@ public class Wikipedia extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         String baseURL = "https://www.google.com/search?q=";
         String search = this.message.getContentRaw().substring(11);
 

@@ -10,7 +10,7 @@ public class Reverse extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         // get the text after the command call and reverse it
         StringBuilder sb = new StringBuilder(this.message.getContentRaw().substring(9)).reverse();
 

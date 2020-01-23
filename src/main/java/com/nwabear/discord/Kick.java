@@ -12,7 +12,7 @@ public class Kick extends Command {
     }
     
     @Override
-    public void command() {
+    public void run() {
         // make sure that at least 1 user is mentioned
         if(!this.message.getMentionedUsers().isEmpty()) {
             for(Member memberToKick : this.message.getMentionedMembers()) {

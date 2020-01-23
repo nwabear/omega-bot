@@ -10,7 +10,7 @@ public class RemindStarter extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         // start a remind thread
         Remind remind = new Remind(this.event);
 

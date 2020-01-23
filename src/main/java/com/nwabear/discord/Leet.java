@@ -10,7 +10,7 @@ public class Leet extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         // get string after command call and set it to all uppercase
         String input = this.message.getContentRaw().substring(6);
         input = input.toUpperCase();

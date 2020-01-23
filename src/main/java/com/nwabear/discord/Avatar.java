@@ -12,7 +12,7 @@ public class Avatar extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         try {
             // get the first mentioned user and return their avatar
             User user = this.message.getMentionedUsers().get(0);

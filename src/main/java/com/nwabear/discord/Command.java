@@ -9,7 +9,7 @@ import net.dv8tion.jda.core.requests.RestAction;
 
 import javax.annotation.meta.Exclusive;
 
-public class Command {
+public class Command implements Runnable {
     User user;
     Member member;
     MessageChannel channel;
@@ -30,7 +30,8 @@ public class Command {
         this.controller = guild.getController();
     }
 
-    public void command() {
+    @Override
+    public void run() {
         // if this method was not overridden, print that the command is broken
         this.channel.sendMessage("This command is broken, sorry for the inconvenience...").queue();
     }

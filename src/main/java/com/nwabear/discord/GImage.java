@@ -18,7 +18,7 @@ public class GImage extends Command {
     }
 
     @Override
-    public void command() {
+    public void run() {
         String google = "https://www.google.com/search?tbm=isch&safe=strict&tbs=ift%3Apng&tbs=ift%3Ajpg&q=";
         String expression = this.message.getContentRaw().substring(7);
         expression = expression.replace("\\", "\\\\");
@@ -59,7 +59,7 @@ public class GImage extends Command {
     public void commandTime(int time) {
         this.time = time;
         if(!(this.time > 5)) {
-            this.command();
+            this.run();
         } else {
             this.channel.sendMessage("Failed to find image").queue();
         }

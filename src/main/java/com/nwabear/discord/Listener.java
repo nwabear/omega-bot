@@ -1,5 +1,6 @@
 package com.nwabear.discord;
 
+import net.dv8tion.jda.client.entities.Application;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -11,9 +12,13 @@ public class Listener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if(!this.keys.contains(event.getGuild().getId())) {
-            this.keys.add(event.getGuild().getId());
-            this.audioManagers.add(new BotAudioManager(event.getGuild()));
+        if(event.getGuild() != null) {
+            if (!this.keys.contains(event.getGuild().getId())) {
+                this.keys.add(event.getGuild().getId());
+                BotAudioManager temp = new BotAudioManager(event.getGuild());
+                new Thread(temp).start();
+                this.audioManagers.add(temp);
+            }
         }
         // when a message is recieved, if it is a bot, don't respond
         if(!event.getAuthor().isBot()) {
@@ -40,32 +45,32 @@ public class Listener extends ListenerAdapter {
 
         switch (command) {
             case "kick": {
-                new Kick(event).command();
+                new Thread(new Kick(event)).start();
                 break;
             }
 
             case "ban": {
-                new Ban(event).command();
+                new Thread(new Ban(event)).start();
                 break;
             }
 
             case "roll": {
-                new Roll(event).command();
+                new Thread(new Roll(event)).start();
                 break;
             }
 
             case "flip": {
-                new Flip(event).command();
+                new Thread(new Flip(event)).start();
                 break;
             }
 
             case "roulette": {
-                new Roulette(event).command();
+                new Thread(new Roulette(event)).start();
                 break;
             }
 
             case "reverse": {
-                new Reverse(event).command();
+                new Thread(new Reverse(event)).start();
                 break;
             }
 
@@ -75,47 +80,52 @@ public class Listener extends ListenerAdapter {
             }
 
             case "echo": {
-                new Echo(event).command();
+                new Thread(new Echo(event)).start();
                 break;
             }
 
             case "leet": {
-                new Leet(event).command();
+                new Thread(new Leet(event)).start();
+                break;
+            }
+
+            case "chance": {
+                new Thread(new Chance(event)).start();
                 break;
             }
 
             case "remind": {
-                new RemindStarter(event).command();
+                new Thread(new RemindStarter(event)).start();
                 break;
             }
 
             case "wikipedia": {
-                new Wikipedia(event).command();
+                new Thread(new Wikipedia(event)).start();
                 break;
             }
 
             case "gimage": {
-                new GImage(event).commandTime(0);
+                new Thread(new GImage(event)).start();
                 break;
             }
 
             case "avatar": {
-                new Avatar(event).command();
+                new Thread(new Avatar(event)).start();
                 break;
             }
 
             case "wavy": {
-                new Wavy(event).command();
+                new Thread(new Wavy(event)).start();
                 break;
             }
 
             case "join": {
-                new Join(event).command();
+                new Thread(new Join(event)).start();
                 break;
             }
 
             case "leave": {
-                new Leave(event).command();
+                new Thread(new Leave(event)).start();
                 break;
             }
 
@@ -126,6 +136,21 @@ public class Listener extends ListenerAdapter {
 
             case "stop": {
                 this.audioManagers.get(this.keys.indexOf(event.getGuild().getId())).stop();
+                break;
+            }
+
+            case "skip": {
+                this.audioManagers.get(this.keys.indexOf(event.getGuild().getId())).skip();
+                break;
+            }
+
+            case "resume": {
+                this.audioManagers.get(this.keys.indexOf(event.getGuild().getId())).resume();
+                break;
+            }
+
+            case "clear": {
+                this.audioManagers.get(this.keys.indexOf(event.getGuild().getId())).clear();
                 break;
             }
 

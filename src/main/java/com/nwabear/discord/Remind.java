@@ -12,7 +12,6 @@ public class Remind extends Command implements Runnable {
         this.command();
     }
 
-    @Override
     public void command() {
         String[] args = this.message.getContentRaw().substring(8).split(" ");
         Calendar cal = Calendar.getInstance();
