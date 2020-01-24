@@ -50,7 +50,6 @@ public class BotAudioManager implements Runnable {
     }
 
     public void skip() {
-        this.player.stopTrack();
         new Play(this.queue.get(0), this.am, this.apm, this.player).command();
         this.queue.remove(0);
     }
