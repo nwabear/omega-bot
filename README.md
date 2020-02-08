@@ -18,10 +18,4 @@ Commands:
  
 Usage:
 
-To run this discord bot, you need to clone this repository into an IDE, then change the token in the BotApp class from 
-```java
-new Token().getToken();
-```
-to the bot token that you get in the discord developer portal.
-
-After setting the token, compile and run the project to start the bot, and the bot will appear as online in discord, signifying that it is now ready to run commands.
+To run this discord bot, simply go to the releases page, download the most recent version, and execute it while passing the bot's token in the arguements.
