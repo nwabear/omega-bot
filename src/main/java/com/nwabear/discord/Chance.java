@@ -15,6 +15,6 @@ public class Chance extends Command {
     public void run() {
         Random rand = new Random();
         // create a random number and print it to the channel
-        this.channel.sendMessage((rand.nextInt(100) + 1) + "").queue();
+        this.channel.sendMessage((rand.nextInt(101)) + "").queue();
     }
 }
