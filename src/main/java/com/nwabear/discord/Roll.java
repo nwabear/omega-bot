@@ -20,7 +20,7 @@ public class Roll extends Command {
             this.channel.sendMessage((rand.nextInt(range) + 1) + "").queue();
         } catch (Exception e) {
             // if the range was left blank, print a number between 1 and 100
-            this.channel.sendMessage((rand.nextInt(100) + 1) + "").queue();
+            this.channel.sendMessage((rand.nextInt(101)) + "").queue();
         }
     }
 }
