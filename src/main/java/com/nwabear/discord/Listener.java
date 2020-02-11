@@ -20,22 +20,27 @@ public class Listener extends ListenerAdapter {
                 this.audioManagers.add(temp);
             }
         }
-        // when a message is recieved, if it is a bot, don't respond
-        if(!event.getAuthor().isBot()) {
-            // if the guild is null, meaning it is in a PM
-            // noify the user not to send messages that way
-            if(event.getGuild() != null) {
-                // if the first character of the message is a semicolon, run the commands
-                if (event.getMessage().getContentRaw().charAt(0) == ';') {
-                    // print to the terminal the user and the command they are running
-                    System.out.println(event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
 
-                    // call the command method do run the cooresponding command
-                    this.command(event);
+        try {
+            // when a message is recieved, if it is a bot, don't respond
+            if (!event.getAuthor().isBot()) {
+                // if the guild is null, meaning it is in a PM
+                // noify the user not to send messages that way
+                if (event.getGuild() != null) {
+                    // if the first character of the message is a semicolon, run the commands
+                    if (event.getMessage().getContentRaw().charAt(0) == ';') {
+                        // print to the terminal the user and the command they are running
+                        System.out.println(event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
+
+                        // call the command method do run the cooresponding command
+                        this.command(event);
+                    }
+                } else {
+                    event.getChannel().sendMessage("Please do not sent private messages, instead join a server with me on it.").queue();
                 }
-            } else {
-                event.getChannel().sendMessage("Please do not sent private messages, instead join a server with me on it.").queue();
             }
+        } catch(ArrayIndexOutOfBoundsException e) {
+            // do nothing
         }
     }
 

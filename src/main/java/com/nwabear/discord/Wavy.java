@@ -1,107 +1,85 @@
 package com.nwabear.discord;
 
-import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Group;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.effect.DisplacementMap;
-import javafx.scene.effect.FloatMap;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
-import java.util.Random;
 
 public class Wavy extends Command {
     public Wavy(MessageReceivedEvent event) {
         super(event);
         this.description =
-                ";wavy: makes the most recent image wavy";
+                ";wavy <iterations>: makes the most recent image wavy";
     }
 
     @Override
     public void run() {
-        this.channel.sendMessage("Deprecated").queue();
-//        try {
-//            Platform.startup(() -> {});
-//        } catch(Exception e) {
-//            // do nothing
-//        }
-//
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    MessageHistory history = Wavy.this.channel.getHistory();
-//                    List<Message> messages = history.retrievePast(20).complete();
-//
-//                    BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_3BYTE_BGR);
-//
-//                    for(int i = 0; i < messages.size(); i++) {
-//                        try {
-//                            if (messages.get(i).getAttachments().get(0).isImage()) {
-//                                Message.Attachment atc = messages.get(i).getAttachments().get(0);
-//                                img = ImageIO.read(atc.getInputStream());
-//                                break;
-//                            }
-//                        } catch(Exception e) {
-//                            // do nothing
-//                        }
-//                    }
-//
-//                    System.out.println(messages.size());
-//
-//                    DisplacementMap dm = new DisplacementMap();
-//                    FloatMap fm = new FloatMap();
-//                    fm.setWidth(img.getWidth());
-//                    fm.setHeight(img.getHeight());
-//
-//                    OpenSimplexNoise noise = new OpenSimplexNoise(new Random().nextLong());
-//
-//                    for (int y = 0; y < img.getHeight(); y++) {
-//                        for (int x = 0; x < img.getWidth(); x++) {
-//                            double value = noise.eval(x / (img.getWidth() / 30.0), y / (img.getHeight() / 30.0));
-//                            value /= 5;
-//
-//
-//                            fm.setSamples(x, y, 0.0f, (float) value);
-//                        }
-//                    }
-//
-//                    dm.setMapData(fm);
-//
-//                    ImageView iv = new ImageView();
-//                    iv.setImage(SwingFXUtils.toFXImage(img, null));
-//                    Group g = new Group();
-//                    g.setEffect(dm);
-//                    g.getChildren().add(iv);
-//
-//                    WritableImage distorted = g.snapshot(new SnapshotParameters(), new WritableImage(img.getWidth(), img.getHeight()));
-//
-//                    File temp = new File("test.png");
-//                    if(temp.createNewFile()) {
-//                        System.out.println("created");
-//                    }
-//
-//                    ByteArrayOutputStream os = new ByteArrayOutputStream();
-//                    ImageIO.write(SwingFXUtils.fromFXImage(distorted, null), "png", os);
-//                    ImageIO.write(SwingFXUtils.fromFXImage(distorted, null), "png", temp);
-//                    InputStream is = new ByteArrayInputStream(os.toByteArray());
-//
-//                    Wavy.this.channel.sendFile(is, "distorted.png").queue();
-//                } catch(Exception e) {
-//                    Wavy.this.channel.sendMessage("Something went wrong, please check the syntax and try again").queue();
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+        int iters = 1;
+        try {
+            iters = Integer.parseInt(message.getContentRaw().split(" ")[1]);
+        } catch(Exception e) {
+            // do nothing
+        }
+        MessageHistory history = this.channel.getHistory();
+        List<Message> messages = history.retrievePast(20).complete();
+
+        BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_3BYTE_BGR);
+
+        for(int i = 0; i < messages.size(); i++) {
+            try {
+                if (messages.get(i).getAttachments().get(0).isImage()) {
+                    Message.Attachment atc = messages.get(i).getAttachments().get(0);
+                    img = ImageIO.read(atc.getInputStream());
+                    break;
+                }
+            } catch(Exception e) {
+                // do nothing
+            }
+        }
+
+        for(int i = 0; i < iters; i++) {
+            img = this.rotateImageByDegrees(img, 90);
+            img = Rescaler.rescaleImage(img, img.getWidth() / 5);
+            img = this.rotateImageByDegrees(img, -90);
+            img = Rescaler.rescaleImage(img, img.getWidth() / 5);
+        }
+
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "png", baos);
+            InputStream is = new ByteArrayInputStream(baos.toByteArray());
+            this.channel.sendFile(is, "output.png").queue();
+        } catch(Exception e) {
+            this.channel.sendMessage("Error distorting image").queue();
+        }
+    }
+
+    public BufferedImage rotateImageByDegrees(BufferedImage img, double angle) {
+        double rads = Math.toRadians(angle);
+        double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
+        int w = img.getWidth();
+        int h = img.getHeight();
+        int newWidth = (int) Math.floor(w * cos + h * sin);
+        int newHeight = (int) Math.floor(h * cos + w * sin);
+
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotated.createGraphics();
+        AffineTransform at = new AffineTransform();
+        at.translate((newWidth - w) / 2, (newHeight - h) / 2);
+
+        int x = w / 2;
+        int y = h / 2;
+
+        at.rotate(rads, x, y);
+        g2d.setTransform(at);
+        g2d.drawImage(img, 0, 0, null);
+        g2d.dispose();
+
+        return rotated;
     }
 }

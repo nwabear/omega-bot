@@ -18,7 +18,7 @@ public class Help {
                             ";ban <user(s)>\n" +
                             ";remind <hours> <minutes> <message>\n" +
                             ";wikipedia <query>\n" +
-                            ";gimage <query>\n" +
+                            "~~;gimage <query>~~ Deprecated\n" +
                             ";join <voice channel>\n" +
                             ";leave\n" +
                             ";play <youtube link>\n" +
@@ -27,7 +27,7 @@ public class Help {
                             ";resume\n" +
                             ";clear\n" +
                             ";avatar <user>\n" +
-                            ";wavy\n" +
+                            ";wavy <iterations>\n" +
                             ";roll <bound>\n" +
                             ";roulette\n" +
                             ";flip\n" +
