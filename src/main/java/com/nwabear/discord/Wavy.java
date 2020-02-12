@@ -38,7 +38,7 @@ public class Wavy extends Command {
                     break;
                 }
             } catch(Exception e) {
-                // do nothing
+                System.out.println(e);
             }
         }
 
