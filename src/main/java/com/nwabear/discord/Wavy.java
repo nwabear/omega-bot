@@ -44,9 +44,9 @@ public class Wavy extends Command {
 
         for(int i = 0; i < iters; i++) {
             img = this.rotateImageByDegrees(img, 90);
-            img = Rescaler.rescaleImage(img, img.getWidth() / 5);
+            img = Rescaler.rescaleImage(img, img.getWidth() / 4);
             img = this.rotateImageByDegrees(img, -90);
-            img = Rescaler.rescaleImage(img, img.getWidth() / 5);
+            img = Rescaler.rescaleImage(img, img.getWidth() / 4);
         }
 
         try {

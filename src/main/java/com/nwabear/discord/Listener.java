@@ -39,7 +39,7 @@ public class Listener extends ListenerAdapter {
                     event.getChannel().sendMessage("Please do not sent private messages, instead join a server with me on it.").queue();
                 }
             }
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch(Exception e) {
             // do nothing
         }
     }
