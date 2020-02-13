@@ -28,6 +28,8 @@ public class Help {
                             ";clear\n" +
                             ";avatar <user>\n" +
                             ";wavy <iterations>\n" +
+                            ";edges\n" +
+                            ";xor\n" +
                             ";roll <bound>\n" +
                             ";roulette\n" +
                             ";flip\n" +
@@ -93,6 +95,14 @@ public class Help {
 
                 case "wavy":
                     response = new Wavy(event).getDescription();
+                    break;
+
+                case "edges":
+                    response = new Edges(event).getDescription();
+                    break;
+
+                case "xor":
+                    response = new XOrImg(event).getDescription();
                     break;
 
                 case "join":
