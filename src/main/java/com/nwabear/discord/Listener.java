@@ -124,6 +124,16 @@ public class Listener extends ListenerAdapter {
                 break;
             }
 
+            case "edges": {
+                new Thread(new Edges(event)).start();
+                break;
+            }
+
+            case "xor": {
+                new Thread(new XOrImg(event)).start();
+                break;
+            }
+
             case "join": {
                 new Thread(new Join(event)).start();
                 break;
