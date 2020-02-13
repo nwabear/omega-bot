@@ -38,22 +38,27 @@ public class Wavy extends Command {
                     break;
                 }
             } catch(Exception e) {
-                System.out.println(e);
+                // do nothing
             }
         }
 
+        this.channel.sendMessage("Processing...").queue();
+
+        long startTime = System.currentTimeMillis();
         for(int i = 0; i < iters; i++) {
             img = this.rotateImageByDegrees(img, 90);
             img = Rescaler.rescaleImage(img, img.getWidth() / 4);
             img = this.rotateImageByDegrees(img, -90);
             img = Rescaler.rescaleImage(img, img.getWidth() / 4);
         }
+        long endTime = System.currentTimeMillis();
 
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, "png", baos);
             InputStream is = new ByteArrayInputStream(baos.toByteArray());
             this.channel.sendFile(is, "output.png").queue();
+            this.channel.sendMessage("Image rendered in " + (endTime - startTime) + "ms").queue();
         } catch(Exception e) {
             this.channel.sendMessage("Error distorting image").queue();
         }
