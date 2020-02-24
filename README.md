@@ -11,10 +11,21 @@ Commands:
  - ;translate <input>: uses google translate to translate text to english
  - ;avatar <user>: prints the avatar picture of the specified user
  - ;roll <bound>: prints a number between 1 and the bound, bound is 100 if left blank
+ - ;chance: same as ;roll
+ - ;flip: flips a coin
  - ;reverse <text>: reverses the inputted text
  - ;reverseName <user(s)>: reverses the name of the specified users, and sets it to their nickname
  - ;leet <input>: outputs the text in leetspeak
  - ;echo <text>: repeats the text inputted
+ - ;join <channel name>: joins a voice channel
+ - ;play <youtube link>: plays youtube audio in the current channel
+ - ;skip: skips the currently playing video
+ - ;stop: stops playing audio
+ - ;clear: clears video queue
+ - ;leave: leaves current voice channel
+ - ;wavy: distorts the most recent image in the channel with liquid resizing
+ - ;xor: passes the most recent image through an xor filter
+ - ;edges: isolates the edges of the most recent image
  
 Usage:
 
