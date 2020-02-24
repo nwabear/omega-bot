@@ -7,19 +7,19 @@ import net.dv8tion.jda.core.entities.MessageHistory;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageOutputStream;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 
-public class XOrImg extends Command {
-    public XOrImg(MessageReceivedEvent event) {
+public class GXOrImg extends Command {
+    public GXOrImg(MessageReceivedEvent event) {
         super(event);
         this.description =
-                ";xor <optional input>: puts image through an xor filter using the input number, or 87 if left blank";
+                ";gxor: creates a gif of every xor input in order (0-255)";
     }
 
     @Override
@@ -40,27 +40,33 @@ public class XOrImg extends Command {
                 // do nothing
             }
         }
-        int num;
-        try {
-            num = Integer.parseInt(this.message.getContentRaw().split(" ")[1]);
-        } catch(Exception e) {
-            num = 87;
-        }
 
         this.channel.sendMessage("Processing...").queue();
 
         ImagePlus ip = new ImagePlus("image", img);
         ImageProcessor iproc = ip.getChannelProcessor();
-        iproc.xor(num);
-        img = iproc.getBufferedImage();
-
         try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "png", baos);
-            InputStream is = new ByteArrayInputStream(baos.toByteArray());
-            this.channel.sendFile(is, "output.png").queue();
+            File temp = new File("temp.gif");
+            if(temp.createNewFile()) {
+                System.out.println("file created");
+            }
+            ImageOutputStream ios = new FileImageOutputStream(temp);
+            GifSequenceWriter gsw = new GifSequenceWriter(ios, iproc.getBufferedImage().getType(), 1, true);
+            gsw.writeToSequence(iproc.getBufferedImage());
+            for(int i = 1; i < 255; i++) {
+                iproc.xor(i - 1);
+                iproc.xor(i);
+                gsw.writeToSequence(iproc.getBufferedImage());
+            }
+            gsw.close();
+            ios.close();
+
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            ImageIO.write(ios, "gif", baos);
+            this.channel.sendFile(temp, "output.gif").queue();
         } catch(Exception e) {
-            this.channel.sendMessage("Error distorting image").queue();
+            this.channel.sendMessage("Image too big to send!").queue();
+            e.printStackTrace();
         }
     }
 
