@@ -19,7 +19,7 @@ public class VoteManager extends Command {
         this.description =
                 ";vote <topic>: creates a 1 minute poll for a topic";
 
-        this.channel.sendMessage("Vote created, \"" + event.getMessage().getContentRaw().substring(5) + ",\" please react with ✅ or ❌!").queue(message -> {
+        this.channel.sendMessage("Vote created: \"" + event.getMessage().getContentRaw().substring(6) + ",\" please react with ✅ or ❌!").queue(message -> {
             message.addReaction("✅").queue();
             message.addReaction("❌").queue();
         });

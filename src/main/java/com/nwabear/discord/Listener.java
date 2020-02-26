@@ -50,7 +50,7 @@ public class Listener extends ListenerAdapter {
                 // noify the user not to send messages that way
                 if (event.getGuild() != null) {
                     // if the first character of the message is a semicolon, run the commands
-                    if (event.getMessage().getContentRaw().charAt(0) == ':') {
+                    if (event.getMessage().getContentRaw().charAt(0) == ';') {
                         // print to the terminal the user and the command they are running
                         System.out.println(event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
 
