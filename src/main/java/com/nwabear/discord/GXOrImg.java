@@ -4,6 +4,7 @@ import ij.ImagePlus;
 import ij.process.ImageProcessor;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageHistory;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import javax.imageio.ImageIO;
@@ -61,7 +62,7 @@ public class GXOrImg extends Command {
             gsw.close();
             ios.close();
 
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //            ImageIO.write(ios, "gif", baos);
             this.channel.sendFile(temp, "output.gif").queue();
         } catch(Exception e) {

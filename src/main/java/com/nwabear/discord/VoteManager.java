@@ -1,12 +1,9 @@
 package com.nwabear.discord;
 
-import javafx.event.Event;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.react.GenericMessageReactionEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
-import net.dv8tion.jda.core.requests.restaction.MessageAction;
 
 public class VoteManager extends Command {
     private int up = -1;

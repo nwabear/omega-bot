@@ -1,42 +1,37 @@
 package com.nwabear.discord;
 
 import net.dv8tion.jda.core.entities.PrivateChannel;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.entities.User;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class Remind extends Command implements Runnable {
+public class Remind implements Runnable {
+    private String message;
+    private User user;
+    private Date finish;
+    private long id;
+
+    public Remind(String message, User user, Date finish) {
+        this.message = message;
+        this.user = user;
+        this.finish = finish;
+    }
+
     @Override
     public void run() {
         this.command();
     }
 
     public void command() {
-        String[] args = this.message.getContentRaw().substring(8).split(" ");
-        Calendar cal = Calendar.getInstance();
-
         try {
-            // get amount of time to wait for
-            int hours = Integer.parseInt(args[0]);
-            int minutes = (60 * hours) + Integer.parseInt(args[1]);
-
-            String message = "";
-
-            for (int i = 2; i < args.length; i++) {
-                // get the message to remind the user of
-                message += args[i];
-                message += " ";
-            }
-
-            // confirm that the user will get the remind after the specified amount of time
-            this.channel.sendMessage("Reminding you in " + args[0] + " hours and " + args[1] + " minutes about \"" + message + "\".").queue();
-
-            // get the time in which the remind will send
-            cal.add(Calendar.MINUTE, minutes);
-            Date finish = cal.getTime();
-
-            while (Calendar.getInstance().getTime().before(finish)) {
+            Calendar cal = Calendar.getInstance();
+            while(cal.getTime().before(this.finish)) {
+                cal = Calendar.getInstance();
                 try {
                     // test every second to see if the remind will be sent
                     Thread.sleep(1000);
@@ -48,12 +43,21 @@ public class Remind extends Command implements Runnable {
             // send the message to the user after the specified time has passed
             PrivateChannel pc = this.user.openPrivateChannel().complete();
             pc.sendMessage(message).queue();
+
+            HttpDelete delete = new HttpDelete("http://192.168.86.110:8080/reminders?id=" + this.id);
+            HttpClient client = HttpClientBuilder.create().build();
+
+            client.execute(delete);
         } catch(Exception e) {
-            this.channel.sendMessage("Something went wrong, check your formatting and try again!").queue();
+            e.printStackTrace();
         }
     }
 
-    public Remind(MessageReceivedEvent event) {
-        super(event);
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

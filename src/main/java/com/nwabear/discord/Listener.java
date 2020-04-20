@@ -1,14 +1,12 @@
 package com.nwabear.discord;
 
-import net.dv8tion.jda.client.entities.Application;
-import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+//import sun.java2d.pipe.SpanShapeRenderer;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 public class Listener extends ListenerAdapter {
@@ -64,6 +62,10 @@ public class Listener extends ListenerAdapter {
         } catch(Exception e) {
             // do nothing
         }
+    }
+
+    public void startup() {
+        new Thread(new ReminderLoader()).start();
     }
 
     private void command(MessageReceivedEvent event) {

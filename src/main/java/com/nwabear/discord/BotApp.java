@@ -3,7 +3,11 @@ package com.nwabear.discord;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 
+import java.util.List;
+
 public class BotApp {
+    private static JDA jda;
+
     public static void main(String[] args) throws Exception {
         // runs bot using bot token
         /*
@@ -15,10 +19,17 @@ public class BotApp {
          */
 
         // runs bot using bot token
-        JDA jda = new JDABuilder(args[0])
-                .addEventListener(new Listener())
+        Listener listener = new Listener();
+        jda = new JDABuilder(args[0])
+                .addEventListener(listener)
                 .build();
-
+        
         jda.awaitReady();
+
+        listener.startup();
+    }
+
+    public static JDA getJda() {
+        return jda;
     }
 }
