@@ -16,7 +16,7 @@ public class ReminderLoader implements Runnable {
         boolean loaded = false;
         while(!loaded) {
             try {
-                String url = "http://192.168.86.110:8080/reminders";
+                String url = "http://localhost:8080/reminders";
                 Gson gson = new Gson();
                 Reminders reminders = gson.fromJson(IOUtils.toString(new URL(url)), Reminders.class);
                 List<Guild> guilds = BotApp.getJda().getGuilds();

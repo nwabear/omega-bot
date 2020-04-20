@@ -46,7 +46,7 @@ public class RemindStarter extends Command {
         Thread thread = new Thread(remind);
         thread.start();
 
-        HttpPost post = new HttpPost("http://192.168.86.110:8080/reminders");
+        HttpPost post = new HttpPost("http://localhost:8080/reminders");
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyLocalizedPattern("yyyy-MM-dd HH:mm:ss");
         String payload = "{\"user_id\":\"" + this.user.getId() + "\",\"reminder_text\":\"" + message + "\",\"reminder_date\":\"" + sdf.format(finish) + "\"}";

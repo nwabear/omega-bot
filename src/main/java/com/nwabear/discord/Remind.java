@@ -44,7 +44,7 @@ public class Remind implements Runnable {
             PrivateChannel pc = this.user.openPrivateChannel().complete();
             pc.sendMessage(message).queue();
 
-            HttpDelete delete = new HttpDelete("http://192.168.86.110:8080/reminders?id=" + this.id);
+            HttpDelete delete = new HttpDelete("http://localhost:8080/reminders?id=" + this.id);
             HttpClient client = HttpClientBuilder.create().build();
 
             client.execute(delete);
