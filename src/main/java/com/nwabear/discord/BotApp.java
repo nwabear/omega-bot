@@ -26,6 +26,8 @@ public class BotApp {
         
         jda.awaitReady();
 
+        // sleep for 10s to allow time for webapp to initialize
+        Thread.sleep(10000);
         listener.startup();
     }
 

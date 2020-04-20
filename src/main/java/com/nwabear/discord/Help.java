@@ -31,7 +31,6 @@ public class Help {
                             ";edges\n" +
                             ";xor <input>\n" +
                             ";roll <bound>\n" +
-                            ";vote <topic>\n" +
                             ";roulette\n" +
                             ";flip\n" +
                             ";reverse <text>\n" +
@@ -132,10 +131,6 @@ public class Help {
 
                 case "clear":
                     response = ";clear: empties the audio queue";
-                    break;
-
-                case "vote":
-                    response = new VoteManager(event).getDescription();
                     break;
 
                 case "leet":
