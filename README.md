@@ -30,3 +30,8 @@ Commands:
 Usage:
 
 To run this discord bot, simply go to the releases page, download the most recent version, and execute it while passing the bot's token in the arguements.
+
+
+NOTICE:
+
+This project is outdated, and if any further changes are made, it will be a complete rewrite of the bot, due to the current poor structure of the application as a whole.
